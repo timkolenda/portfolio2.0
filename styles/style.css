@@ -170,6 +170,20 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
           box-sizing: border-box;
 }
 
+.visuallyhidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0);
+  overflow: hidden;
+}
+
 h1, h2 {
   margin: 0;
 }
@@ -392,7 +406,10 @@ img {
 }
 
 .project {
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
   overflow: hidden;
   width: 100%;
 }
@@ -405,12 +422,7 @@ img {
 }
 
 .project--1.show {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  opacity: 1;
 }
 
 .project--2 {
@@ -421,12 +433,7 @@ img {
 }
 
 .project--2.show {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  opacity: 1;
 }
 
 .project--3 {
@@ -437,9 +444,7 @@ img {
 }
 
 .project--3.show {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  opacity: 1;
 }
 
 .project__image {
