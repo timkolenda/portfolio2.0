@@ -1,0 +1,30 @@
+
+.contentContainer {
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - 10vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    border: 1px solid red;
+    opacity: 0;
+    transition: opacity 1s;
+    transition-delay: 1s;
+    height: calc(100vh - 12vh);
+    width: 90%;
+    max-width: 90%;
+    overflow: hidden;
+    &--projects {
+        // display: flex;  
+        flex-direction: column;
+    }
+}
+
+.open {
+    .content {
+        opacity: 1;
+    }
+}

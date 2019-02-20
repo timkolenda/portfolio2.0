@@ -1,0 +1,64 @@
+
+.variableContent {
+    width: 100%;
+    height: 80vh;
+}
+
+.project {
+    // display: flex;
+    display: none;
+    overflow: hidden;
+    // height: 80vh;
+    width: 100%;
+    &--1 {
+        background: tomato;
+        flex: 0;
+        &.show {
+            display: flex;
+            flex: 1 0 auto;
+        }
+    }
+    &--2 {
+        background: green;
+        flex: 0;
+        &.show {
+            display: flex;
+            flex: 1 0 auto;
+        }
+    }
+    &--3 {
+        background: blue;
+        flex: 0;
+        &.show {
+            flex: 1 0 auto;
+        }
+    }
+    &__image {
+        width: 50%;
+    }
+    &__description {
+        width: 50%;
+    }
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    .controlButtons {
+        display: flex;
+        margin: 20px 0;
+        width: 35%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .controlButton {
+        padding: 10px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+}
+
+
+
+
