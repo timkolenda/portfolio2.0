@@ -416,69 +416,41 @@ img {
   display: flex;
   width: 100%;
   position: relative;
-  -webkit-transition-property: -webkit-transform 1s ease-in-out;
-  transition-property: -webkit-transform 1s ease-in-out;
-  transition-property: transform 1s ease-in-out;
-  transition-property: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+  -webkit-transition-property: transform(translateX) 1s ease-in-out, transform(translateX) 1s ease-in-out;
+  transition-property: transform(translateX) 1s ease-in-out, transform(translateX) 1s ease-in-out;
+  transition-property: transform(translateX) 1s ease-in-out;
   -webkit-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
 }
 
 .project--1 {
+  -webkit-transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
   background: tomato;
-}
-
-.project--1.displayed {
   -webkit-transform: translateX(calc(-100% * 1));
           transform: translateX(calc(-100% * 1));
 }
 
-.project--1.hideOnRight {
-  -webkit-transform: translateX(calc(-100% * (1 - 1)));
-          transform: translateX(calc(-100% * (1 - 1)));
-}
-
-.project--1.hideOnLeft {
-  -webkit-transform: translateX(calc(-100% * (1 + 1)));
-          transform: translateX(calc(-100% * (1 + 1)));
-}
-
 .project--2 {
+  -webkit-transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
   background: green;
-}
-
-.project--2.displayed {
-  -webkit-transform: translateX(calc(-100% * 2));
-          transform: translateX(calc(-100% * 2));
-}
-
-.project--2.hideOnRight {
   -webkit-transform: translateX(calc(-100% * (2 - 1)));
           transform: translateX(calc(-100% * (2 - 1)));
 }
 
-.project--2.hideOnLeft {
-  -webkit-transform: translateX(calc(-100% * (2 + 1)));
-          transform: translateX(calc(-100% * (2 + 1)));
-}
-
 .project--3 {
+  -webkit-transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: -webkit-transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out;
+  transition-property: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
   background: blue;
-}
-
-.project--3.displayed {
-  -webkit-transform: translateX(calc(-100% * 3));
-          transform: translateX(calc(-100% * 3));
-}
-
-.project--3.hideOnRight {
   -webkit-transform: translateX(calc(-100% * (3 - 1)));
           transform: translateX(calc(-100% * (3 - 1)));
-}
-
-.project--3.hideOnLeft {
-  -webkit-transform: translateX(calc(-100% * (3 + 1)));
-          transform: translateX(calc(-100% * (3 + 1)));
 }
 
 .project__image {

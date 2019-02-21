@@ -23,50 +23,75 @@ function toggleOpen(e) {
 
 function colapseTitle(e) {
     if (e.propertyName.includes('flex') && [...this.classList].includes('open')) {
-        // console.log(e);
         this.firstElementChild.classList.add('min');        
     }
 }
 
 function navigateToSelectedProject(e) {
+    projects.forEach(project => project.addEventListener('transitionend', (e) => {
+        console.log('run');
+        console.log(e.originalTarget);
+        console.log(currentProject);
+        if (e.originalTarget === currentProject) {
+            switchToTargetProject(targetProject, direction);
+        } else {
+            console.log('should return');
+            return;
+        }
+    }));
     const currentProject = [...projects].filter(project => [...project.classList].includes('displayed'))[0];
-    let currentProjectNumber = Number(currentProject.classList[1].slice(-1));
-    // console.log('ntsp', currentProjectNumber);
-    let button = e.target.classList[1];
+    const currentProjectNumber = Number(currentProject.classList[1].slice(-1));
+    const currentProjectPositionMatrix = window.getComputedStyle(currentProject).getPropertyValue('transform');
+    const currentProjectPosition = new WebKitCSSMatrix(currentProjectPositionMatrix).m41;
+    const button = e.target.classList[1];
     let targetProject = {};
+    let direction = '';
     if (button === 'controlButton--forward' && currentProjectNumber < projects.length) {
+        direction = 'forward';
         targetProject = [...projects].filter(project => [...project.classList].includes(`project--${currentProjectNumber + 1}`))[0];
-        console.log(targetProject);
-        switchProject(currentProject, currentProjectNumber, targetProject);
+        const targetProjectNumber = Number(targetProject.classList[1].slice(-1));
+        switchFromCurrentProject(currentProject, currentProjectNumber, currentProjectPosition, direction);
     }
     if (button === 'controlButton--back' && currentProjectNumber > 1) {
+        direction = 'back';
         targetProject = [...projects].filter(project => [...project.classList].includes(`project--${currentProjectNumber - 1}`))[0];
-        switchProject(currentProject, currentProjectNumber, targetProject);
+        const targetProjectNumber = Number(targetProject.classList[1].slice(-1));
+        switchFromCurrentProject(currentProject, currentProjectNumber, currentProjectPosition, direction);
     }
     if (!button.includes('forward') && !button.includes('back')) {
         console.log(currentProjectNumber);
         console.log(button);
     }
-    // switchProject(currentProject, currentProjectNumber, targetProject);
-    
 }
 
-function switchProject(currentProject, currentProjectNumber, targetProject) {
+
+
+function switchFromCurrentProject(currentProject, currentProjectNumber, currentProjectPosition, direction) {
+    console.log(currentProjectPosition);
+    currentProject.style.transition = "transform 1s";
+    if (direction === 'forward') {
+        currentProject.style.transform = `translateX(calc(${currentProjectPosition}px - 100%))`;
+        currentProject.classList.remove('displayed');
+    }
+    if (direction === 'back') {
+        currentProject.style.transform = `translateX(calc(${currentProjectPosition}px + 100%))`;
+        currentProject.classList.remove('displayed');
+    }
+}
+
+function switchToTargetProject(targetProject, direction){
     const targetProjectNumber = Number(targetProject.classList[1].slice(-1));
-    if (currentProjectNumber < targetProjectNumber) {
-        currentProject.classList.remove('displayed');
-        currentProject.classList.add('hideOnLeft');
-        targetProject.classList.remove('hideOnRight');
-        targetProject.classList.add('displayed');
+    const targetProjectPositionMatrix = window.getComputedStyle(targetProject).getPropertyValue('transform');
+    const targetProjectPosition = new WebKitCSSMatrix(targetProjectPositionMatrix).m41;
+    targetProject.style.transition = "transform 1s";
+    if (direction === 'forward') {
+        targetProject.style.transform = `translateX(calc(${targetProjectPosition}px - 100%))`;
     }
-    if (currentProjectNumber > targetProjectNumber) {
-        currentProject.classList.remove('displayed');
-        currentProject.classList.add('hideOnRight');
-        targetProject.classList.remove('hideOnLeft');
-        targetProject.classList.add('displayed');
+    if (direction === 'back') {
+        targetProject.style.transform = `translateX(calc(${targetProjectPosition}px + 100%))`;
     }
+    targetProject.classList.add('displayed');
 }
-
 
 
 
@@ -74,4 +99,5 @@ function switchProject(currentProject, currentProjectNumber, targetProject) {
 tabs.forEach(tab => tab.addEventListener('click', toggleOpen));
 tabs.forEach(tab => tab.addEventListener('transitionend', colapseTitle));
 controlButtons.forEach(button => button.addEventListener('click', navigateToSelectedProject));
+
 
