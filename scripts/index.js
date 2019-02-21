@@ -29,33 +29,42 @@ function colapseTitle(e) {
 }
 
 function navigateToSelectedProject(e) {
-    const currentProject = [...projects].filter(project => [...project.classList].includes('show'))[0];
+    const currentProject = [...projects].filter(project => [...project.classList].includes('displayed'))[0];
     let currentProjectNumber = Number(currentProject.classList[1].slice(-1));
+    // console.log('ntsp', currentProjectNumber);
     let button = e.target.classList[1];
     let targetProject = {};
     if (button === 'controlButton--forward' && currentProjectNumber < projects.length) {
         targetProject = [...projects].filter(project => [...project.classList].includes(`project--${currentProjectNumber + 1}`))[0];
-        switchProject(currentProject, targetProject);
+        console.log(targetProject);
+        switchProject(currentProject, currentProjectNumber, targetProject);
     }
-    //this isn't working because project number is a string and has to be converted to a number
     if (button === 'controlButton--back' && currentProjectNumber > 1) {
         targetProject = [...projects].filter(project => [...project.classList].includes(`project--${currentProjectNumber - 1}`))[0];
-        switchProject(currentProject, targetProject);
+        switchProject(currentProject, currentProjectNumber, targetProject);
     }
     if (!button.includes('forward') && !button.includes('back')) {
         console.log(currentProjectNumber);
         console.log(button);
     }
+    // switchProject(currentProject, currentProjectNumber, targetProject);
     
 }
 
-function switchProject(currentProject, targetProject) {
-    // console.log(currentProject);
-    // console.log(targetProject);
-    currentProject.classList.remove('show');
-    currentProject.classList.add('visuallyhidden');
-    targetProject.classList.remove('visuallyhidden');
-    targetProject.classList.add('show');
+function switchProject(currentProject, currentProjectNumber, targetProject) {
+    const targetProjectNumber = Number(targetProject.classList[1].slice(-1));
+    if (currentProjectNumber < targetProjectNumber) {
+        currentProject.classList.remove('displayed');
+        currentProject.classList.add('hideOnLeft');
+        targetProject.classList.remove('hideOnRight');
+        targetProject.classList.add('displayed');
+    }
+    if (currentProjectNumber > targetProjectNumber) {
+        currentProject.classList.remove('displayed');
+        currentProject.classList.add('hideOnRight');
+        targetProject.classList.remove('hideOnLeft');
+        targetProject.classList.add('displayed');
+    }
 }
 
 
